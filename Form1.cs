@@ -16,7 +16,9 @@ namespace QbitGuncelle_web
 {
     public partial class Form1 : Form
     {
-        private string destinationFile = "";
+        private static string destinationFile = Application.StartupPath + "\\QbitKazan_v2.zip";
+        private static string sourceFile = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -29,8 +31,8 @@ namespace QbitGuncelle_web
 
         private void CompressButton_Click(object sender, EventArgs e)
         {
-            string sourceFile = "";
-            string destinationFile = "";
+            //string sourceFile = "";
+            //string destinationFile = "";
 
             // OpenFileDialog nesnesi oluşturuluyor
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -58,8 +60,8 @@ namespace QbitGuncelle_web
                     return;
                 }
 
-                // Compress the file
-                ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile, CompressionLevel.Fastest, true);
+                // Compress the file //Path.GetDirectoryName(sourceFile)
+                ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile, CompressionLevel.Optimal, true);
                 MessageBox.Show("Dosya paketi oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Upload the compressed file via FTP

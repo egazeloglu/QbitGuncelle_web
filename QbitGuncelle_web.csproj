@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>QbitGuncelle_web</RootNamespace>
     <AssemblyName>QbitGuncelle_web</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>QbitGuncelle_web.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
