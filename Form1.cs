@@ -62,10 +62,10 @@ namespace QbitGuncelle_web
 
                 // Compress the file //Path.GetDirectoryName(sourceFile)
                 ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile, CompressionLevel.Optimal, true);
-                MessageBox.Show("Dosya paketi oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Dosya paketi oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Upload the compressed file via FTP
-                //UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/guncelleme/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
+                UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
                 //MessageBox.Show("Yükleme Dosyası başarıyla oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -93,6 +93,11 @@ namespace QbitGuncelle_web
             using (WebClient client = new WebClient())
             {
                 client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+                if (!File.Exists(fileToUpload))
+                {
+                    MessageBox.Show("Kaynak dosya bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 // Dosya boyutunu al
                 FileInfo fileInfo = new FileInfo(fileToUpload);
@@ -126,6 +131,8 @@ namespace QbitGuncelle_web
 
             // OpenFileDialog nesnesi oluşturuluyor
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Dosya aç";
+            openFileDialog.FileName = "*.zip";
             DialogResult result = openFileDialog.ShowDialog();
             // Kullanıcı dosya seçtiyse
             if (result == DialogResult.OK)
