@@ -34,10 +34,14 @@ namespace QbitGuncelle_web
             //string sourceFile = "";
             //string destinationFile = "";
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
+            string programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             // OpenFileDialog nesnesi oluşturuluyor
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = desktopPath;
+            if (rd1.Checked)
+                openFileDialog.InitialDirectory = desktopPath;
+            if (rd2.Checked)
+                openFileDialog.InitialDirectory = programFilesPath;
+
             openFileDialog.FileName = "*QbitKazan_v2.exe";
             openFileDialog.Filter = "*.exe|*.exe";
             DialogResult result = openFileDialog.ShowDialog();
@@ -152,6 +156,16 @@ namespace QbitGuncelle_web
                 UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
                 //MessageBox.Show("Karşıya Yükleme Tamamlandı.", "Güncel dosyayı web yükle ", MessageBoxButtons.OK);
             }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
