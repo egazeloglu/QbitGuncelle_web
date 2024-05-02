@@ -33,9 +33,13 @@ namespace QbitGuncelle_web
         {
             //string sourceFile = "";
             //string destinationFile = "";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             // OpenFileDialog nesnesi oluşturuluyor
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = desktopPath;
+            openFileDialog.FileName = "*QbitKazan_v2.exe";
+            openFileDialog.Filter = "*.exe|*.exe";
             DialogResult result = openFileDialog.ShowDialog();
             // Kullanıcı dosya seçtiyse
             if (result == DialogResult.OK)
