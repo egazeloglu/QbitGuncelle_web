@@ -16,6 +16,7 @@ namespace QbitGuncelle_web
 {
     public partial class Form1 : Form
     {
+        private string destinationFile = "";
         public Form1()
         {
             InitializeComponent();
@@ -58,11 +59,11 @@ namespace QbitGuncelle_web
                 }
 
                 // Compress the file
-                ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile);
+                ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile, CompressionLevel.Optimal, true);
 
-
+                MessageBox.Show("Dosya paketi oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Upload the compressed file via FTP
-                UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar1);
+                UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
 
                 MessageBox.Show("Yükleme Dosyası başarıyla oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -87,6 +88,7 @@ namespace QbitGuncelle_web
 
         private void UploadFileViaFTP(string fileToUpload, string ftpServerPath, string ftpUsername, string ftpPassword, ProgressBar progressBar)
         {
+            bool islemTamam = false;
             using (WebClient client = new WebClient())
             {
                 client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
@@ -100,17 +102,26 @@ namespace QbitGuncelle_web
                 {
                     // İlerleme çubuğunu güncelle
                     progressBar.Value = (int)((e.BytesSent * 100) / fileSize);
+                    //Console.WriteLine("Maksimum " + progressBar.Maximum);
+                    if (progressBar.Value == progressBar.Maximum)
+                    {
+                        if (!islemTamam)
+                        {
+                            islemTamam = true;
+                            MessageBox.Show("Karşıya Yükleme Tamamlandı.", "Güncel dosyayı web yükle ", MessageBoxButtons.OK);
+                            progressBar.Value = 0;
+                        }
+                    }
                 };
 
                 // Dosyayı yükle
-                //client.UploadFileAsync(new Uri(ftpServerPath + "/" + Path.GetFileName(fileToUpload)), WebRequestMethods.Ftp.UploadFile, fileToUpload);
-                client.UploadFile(ftpServerPath + Path.GetFileName(fileToUpload), WebRequestMethods.Ftp.UploadFile, fileToUpload);
+                client.UploadFileAsync(new Uri(ftpServerPath + Path.GetFileName(fileToUpload)), WebRequestMethods.Ftp.UploadFile, fileToUpload);
+                //client.UploadFile(ftpServerPath + Path.GetFileName(fileToUpload), WebRequestMethods.Ftp.UploadFile, fileToUpload);
             }
         }
 
         private void UploadButton_Click(object sender, EventArgs e)
         {
-            string destinationFile="";
 
             // OpenFileDialog nesnesi oluşturuluyor
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -122,8 +133,8 @@ namespace QbitGuncelle_web
                 destinationFile = openFileDialog.FileName;
             }
             // Upload the compressed file via FTP
-            UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar1);
-            MessageBox.Show("Karşıya Yükleme Tamamlandı.", "Güncel dosyayı web yükle ", MessageBoxButtons.OK);
+            UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
+            //MessageBox.Show("Karşıya Yükleme Tamamlandı.", "Güncel dosyayı web yükle ", MessageBoxButtons.OK);
         }
     }
 }
