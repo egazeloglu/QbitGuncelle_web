@@ -133,7 +133,11 @@ namespace QbitGuncelle_web
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Dosya aç";
             openFileDialog.FileName = "*.zip";
+            openFileDialog.InitialDirectory = Application.ExecutablePath;
             DialogResult result = openFileDialog.ShowDialog();
+            openFileDialog.InitialDirectory = Application.ExecutablePath;
+            openFileDialog.Title = "Dosya aç";
+            openFileDialog.FileName = "*.zip";
             // Kullanıcı dosya seçtiyse
             if (result == DialogResult.OK)
             {
