@@ -133,20 +133,21 @@ namespace QbitGuncelle_web
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Dosya aç";
             openFileDialog.FileName = "*.zip";
-            openFileDialog.InitialDirectory = Application.ExecutablePath;
+            openFileDialog.InitialDirectory = Application.ExecutablePath.Substring(0, (Application.ExecutablePath.Length - (Application.ProductName.Length + 4)));
+
             DialogResult result = openFileDialog.ShowDialog();
             openFileDialog.InitialDirectory = Application.ExecutablePath;
-            openFileDialog.Title = "Dosya aç";
-            openFileDialog.FileName = "*.zip";
+            //openFileDialog.Title = "Dosya aç";
+            //openFileDialog.FileName = "*.zip";
             // Kullanıcı dosya seçtiyse
             if (result == DialogResult.OK)
             {
                 // Seçilen dosyanın yolu alınıyor 
                 destinationFile = openFileDialog.FileName;
+                // Upload the compressed file via FTP
+                UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
+                //MessageBox.Show("Karşıya Yükleme Tamamlandı.", "Güncel dosyayı web yükle ", MessageBoxButtons.OK);
             }
-            // Upload the compressed file via FTP
-            UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
-            //MessageBox.Show("Karşıya Yükleme Tamamlandı.", "Güncel dosyayı web yükle ", MessageBoxButtons.OK);
         }
     }
 }
