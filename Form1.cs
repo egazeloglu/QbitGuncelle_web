@@ -59,13 +59,12 @@ namespace QbitGuncelle_web
                 }
 
                 // Compress the file
-                ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile, CompressionLevel.Optimal, true);
-
+                ZipFile.CreateFromDirectory(Path.GetDirectoryName(sourceFile), destinationFile, CompressionLevel.Fastest, true);
                 MessageBox.Show("Dosya paketi oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Upload the compressed file via FTP
-                UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
 
-                MessageBox.Show("Yükleme Dosyası başarıyla oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Upload the compressed file via FTP
+                //UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
+                //MessageBox.Show("Yükleme Dosyası başarıyla oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
