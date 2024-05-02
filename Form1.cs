@@ -65,7 +65,7 @@ namespace QbitGuncelle_web
                 MessageBox.Show("Dosya paketi oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Upload the compressed file via FTP
-                //UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
+                //UploadFileViaFTP(destinationFile, $"ftp://ftp.qbitproje.com/guncelleme/", "qbitkazanv2@qbitproje.com", "_zN6sV_5StP_", progressBar);
                 //MessageBox.Show("Yükleme Dosyası başarıyla oluşturuldu.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
